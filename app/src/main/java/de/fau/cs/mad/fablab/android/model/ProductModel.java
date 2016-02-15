@@ -99,8 +99,13 @@ public class ProductModel {
                         @Override
                         public Product call() throws Exception {
                             for (Product product : updatedProducts) {
-                                product.setDatabaseId(Long.parseLong(product.getProductId()));
-                                mProductDao.createOrUpdate(product);
+                                //TODO is a productID always a long?
+                                try {
+                                    product.setDatabaseId(Long.parseLong(product.getProductId()));
+                                    mProductDao.createOrUpdate(product);
+                                }catch (NumberFormatException e){
+                                    Log.e(TAG, e.getMessage());
+                                }
                             }
                             return null;
                         }
@@ -115,8 +120,13 @@ public class ProductModel {
                         @Override
                         public Product call() throws Exception {
                             for (Product product : removedProducts) {
-                                product.setDatabaseId(Long.parseLong(product.getProductId()));
-                                mProductDao.delete(product);
+                                //TODO is a productID always a long?
+                                try {
+                                    product.setDatabaseId(Long.parseLong(product.getProductId()));
+                                    mProductDao.delete(product);
+                                }catch (NumberFormatException e) {
+                                    Log.e(TAG, e.getMessage());
+                                }
                             }
                             return null;
                         }
