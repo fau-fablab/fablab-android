@@ -210,8 +210,8 @@
         <![CDATA[
         Diese App wurde im Rahmen des <a href="https://www2.informatik.uni-erlangen.de/teaching/SS2015/MAD/index.html">MAD Projekts</a>
         an der FAU Erlangen-Nürnberg entwickelt.<br>
-        Der Quellcode kann unter <a href="https://github.com/FAU-Inf2/fablab-android">Github</a> gefunden werden.<br>
-        Feedback jederzeit gerne per <a href="mailto:fablab@i2.cs.fau.de">E-Mail</a>.<br>
+        Der Quellcode kann unter <a href="https://github.com/fau-fablab/fablab-android">Github</a> gefunden werden.<br>
+        Feedback jederzeit gerne per <a href="mailto:app@fablab.fau.de">E-Mail</a>.<br>
         <br>
         Die Entwickler sind:<br>
         <br>
@@ -225,7 +225,8 @@
         Katharina Full<br>
         Philip Kanhäußer<br>
         Julian Lorz<br>
-        Daniel Rosenmüller
+        Daniel Rosenmüller<br>
+        und einige mehr.
         ]]>
     </string>
     <string name="about_open_source_licenses">Open Source Lizenzen</string>

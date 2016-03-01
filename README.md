@@ -1,6 +1,8 @@
-# fablab-android [![Build Status](https://travis-ci.org/FAU-Inf2/fablab-android.svg?branch=master)](https://travis-ci.org/FAU-Inf2/fablab-android)
+# fablab-android [![Build Status](https://travis-ci.org/fau-fablab/fablab-android.svg?branch=master)](https://travis-ci.org/fau-fablab/fablab-android)
 
-fablab-android is an Android application that uses a [Dropwizard](http://www.dropwizard.io) based [REST-server](https://github.com/FAU-Inf2/fablab-server).
+fablab-android is an Android application that uses a [Dropwizard](http://www.dropwizard.io) based [REST-server](https://github.com/fau-fablab/fablab-server).
+
+Development happens at the [@fau-fablab repository](https://github.com/fau-fablab/fablab-android). For historical reasons, releases to the Google Play Store happen via pullrequests to [@FAU-Inf2](https://github.com/FAU-Inf2/fablab-android) (FAU, chair of computer science 2), some automagic travis build and a friendly email to the folks at Inf2.
 
 ## Build
 
@@ -8,7 +10,7 @@ To build the app, run:
 
 	./gradlew build
 
-This will also integrate the [fablab-common](https://github.com/FAU-Inf2/fablab-common) repository that contains interfaces and entities used for both the server and the Android application.
+This will also integrate the [app-common](https://github.com/fau-fablab/app-common) repository (formerly called fablab-common) that contains interfaces and entities used for both the server and the Android application.
 
 To make use of the JaxRs interfaces in the Android application, apply the following gradle task:
 
@@ -25,7 +27,7 @@ fablab-android uses the following libraries and software:
 * [okio](https://github.com/square/okio) License [Apache License Version 2.0](https://github.com/square/okio/blob/master/LICENSE.txt)
 
 ## Licence
-    Copyright 2015 MAD FabLab team
+    Copyright 2015 MAD FabLab team and others
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -41,5 +43,5 @@ fablab-android uses the following libraries and software:
 
 
 ## Contact
-Feel free to contact us: fablab@i2.cs.fau.de
+Feel free to contact us: app@fablab.fau.de
 
