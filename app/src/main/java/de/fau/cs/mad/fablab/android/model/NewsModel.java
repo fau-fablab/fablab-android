@@ -2,6 +2,7 @@ package de.fau.cs.mad.fablab.android.model;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.SelectArg;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -129,7 +130,8 @@ public class NewsModel {
 
     private void createIfNotExists(RuntimeExceptionDao<News, Long> newsDao, News news)
     {
-        List<News> retrievedNews = newsDao.queryForEq("title", news.getTitle());
+        SelectArg selectArg = new SelectArg(news.getTitle());
+        List<News> retrievedNews = newsDao.queryForEq("title", selectArg);
 
         if(retrievedNews.size() == 0)
         {
