@@ -23,6 +23,24 @@ public class NewsDetailsDialogViewModel {
         }
     };
 
+    private Command<Void> shareCommand = new Command<Void>() {
+        @Override
+        public void execute(Void parameter) {
+            if(mListener != null) {
+                mListener.onShareClicked();
+            }
+        }
+    };
+
+    private Command<Void> openInBrowserCommand = new Command<Void>() {
+        @Override
+        public void execute(Void parameter) {
+            if(mListener != null) {
+                mListener.onOpenInBrowserClicked();
+            }
+        }
+    };
+
     @Inject
     public NewsDetailsDialogViewModel() {
 
@@ -36,6 +54,16 @@ public class NewsDetailsDialogViewModel {
         return mImageClickCommand;
     }
 
+    public Command<Void> getOpenInBrowserCommand()
+    {
+        return openInBrowserCommand;
+    }
+
+    public Command<Void> getShareCommand()
+    {
+        return shareCommand;
+    }
+
     public News getNews()
     {
         return mNews;
@@ -47,5 +75,7 @@ public class NewsDetailsDialogViewModel {
 
     public interface Listener {
         void onImageClicked();
+        void onShareClicked();
+        void onOpenInBrowserClicked();
     }
 }

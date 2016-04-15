@@ -1,14 +1,18 @@
 package de.fau.cs.mad.fablab.android.view.fragments.news;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,11 +25,12 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import de.fau.cs.mad.fablab.android.R;
 import de.fau.cs.mad.fablab.android.view.activities.MainActivity;
+import de.fau.cs.mad.fablab.android.view.common.binding.MenuItemCommandBinding;
 import de.fau.cs.mad.fablab.android.view.common.binding.ViewCommandBinding;
-import de.fau.cs.mad.fablab.android.view.common.fragments.BaseDialogFragment;
+import de.fau.cs.mad.fablab.android.view.common.fragments.BaseFragment;
 import de.fau.cs.mad.fablab.android.viewmodel.common.ObservableWebView;
 
-public class NewsDetailsDialogFragment extends BaseDialogFragment
+public class NewsDetailsDialogFragment extends BaseFragment
         implements NewsDetailsDialogViewModel.Listener {
     @Bind(R.id.news_dialog_title)
     TextView title_tv;
@@ -33,8 +38,6 @@ public class NewsDetailsDialogFragment extends BaseDialogFragment
     ObservableWebView webView;
     @Bind(R.id.news_dialog_image)
     ImageView image_iv;
-    @Bind(R.id.news_dialog_link_tv)
-    WebView link_tv;
 
     LinearLayout title_ll;
     LinearLayout header_ll;
@@ -42,6 +45,12 @@ public class NewsDetailsDialogFragment extends BaseDialogFragment
     @Inject
     NewsDetailsDialogViewModel mViewModel;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -84,10 +93,6 @@ public class NewsDetailsDialogFragment extends BaseDialogFragment
                 }
             }
         });
-
-        String link = stylesheet +
-                "<html><body class=\"link\"><a href=" +  mViewModel.getNews().getLink() + ">" + mViewModel.getNews().getLink() + "</a></body></html>";
-        link_tv.loadDataWithBaseURL("file:///android_asset/", link, "text/html", "UTF-8", null);
     }
 
     @Override
@@ -100,7 +105,22 @@ public class NewsDetailsDialogFragment extends BaseDialogFragment
     @Override
     public void onResume() {
         super.onResume();
-        setDisplayOptions(MainActivity.DISPLAY_LOGO);
+        int displayOptions = MainActivity.DISPLAY_LOGO | MainActivity.DISPLAY_NAVDRAWER;
+        setDisplayOptions(displayOptions);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menu_share, menu);
+
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        new MenuItemCommandBinding().bind(shareItem, mViewModel.getShareCommand());
+
+        MenuItem openInBrowserItem = menu.findItem(R.id.action_open);
+        new MenuItemCommandBinding().bind(openInBrowserItem, mViewModel.getOpenInBrowserCommand());
+
     }
 
     @Override
@@ -122,5 +142,23 @@ public class NewsDetailsDialogFragment extends BaseDialogFragment
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         builder.show();
+    }
+
+    @Override
+    public void onShareClicked()
+    {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mViewModel.getNews().getTitle());
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, mViewModel.getNews().getLink());
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
+    }
+
+    @Override
+    public void onOpenInBrowserClicked()
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(mViewModel.getNews().getLink()));
+        startActivity(intent);
     }
 }
