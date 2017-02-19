@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">FAU Fablab</string>
-
     <string name="appbar_fau">FAU</string>
     <string name="appbar_fablab">FabLab</string>
     <string name="appbar_opened">Geöffnet</string>

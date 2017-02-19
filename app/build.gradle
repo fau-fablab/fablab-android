@@ -49,9 +49,16 @@ android {
             keyPassword "unknown"
         }
     }
+    lintOptions {
+        ignore 'NewApi' // TODO upgrade api version and disable this again
+        textReport true
+        textOutput 'stdout'
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            resValue "string", "app_name", "FAU FabLab"
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "api_url", "https://app.fablab.fau.de/api"
 
@@ -59,8 +66,15 @@ android {
         }
 
         debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            resValue "string", "app_name", "FAU FabLab Devel"
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "api_url", "https://app.fablab.fau.de/api"
         }
+
     }
 
     productFlavors {

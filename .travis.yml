@@ -9,6 +9,7 @@ android:
   - extra-android-m2repository
   - extra-google-m2repository
 
+jdk: oraclejdk8
 
 # cache, so that the build runs faster - see https://docs.travis-ci.com/user/languages/android/
 
